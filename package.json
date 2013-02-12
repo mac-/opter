@@ -1,0 +1,31 @@
+{
+	"name": "opter",
+	"description": "A Node JS wrapper around commander to allow for easy commandline and env var parsing",
+	"contributors": [
+		"Mac Angell <mac.ang311@gmail.com>"
+	],
+	"version": "0.1.0",
+	"dependencies": {
+		"commander": "1.x.x",
+		"underscore": "1.x.x"
+	},
+	"devDependencies": {
+		"mocha": "1.x.x",
+		"jshint": "0.x.x"
+	},
+	"keywords": [
+		"options"
+	],
+	"engines": {
+		"node": ">=0.8.0"
+	},
+	"main": "./lib/opter.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mac-/opter"
+	},
+	"scripts": {
+		"test": "make test"
+	},
+	"subdomain": "opter"
+}
