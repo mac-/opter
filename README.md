@@ -50,7 +50,7 @@ With the example above, here are some sample ways to invoke the app:
 
 	$ node app.js -m test
 	$ node app.js --my-option test
-	$ myOption=test && node app.js
+	$ export myOption=test && node app.js
 	$ node app.js -h
 	$ node app.js -V
 
