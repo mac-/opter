@@ -42,36 +42,71 @@ describe('Opter Unit Tests', function() {
 
 	it('should read values from args', function(done) {
 		
-		process.env.myOptionFromArgs = 'env';
+		process.env.myOptionFromArgs1 = 'args1';
+		process.env.myOptionFromArgs2 = 'args2';
 		var cfg = opter({
-			myOptionFromArgs: {
-				defaultValue: 'default'
+			myOptionFromArgs1: {
+				defaultValue: 'default1'
+			},
+			myOptionFromArgs2: {
+				defaultValue: 'default2'
 			}
 		}, '0.1.0', commander);
-		assert.strictEqual(cfg.myOptionFromArgs, 'args', 'myOptionFromArgs is: args');
+		assert.strictEqual(cfg.myOptionFromArgs1, 'args1', 'myOptionFromArgs1 is: args1');
+		assert.strictEqual(cfg.myOptionFromArgs2, 'args2', 'myOptionFromArgs2 is: args2');
 		done();
 	});
 
 	it('should read values from env', function(done) {
 		
-		process.env.myOptionFromEnv = 'env';
+		process.env.myOptionFromEnv1 = 'env1';
+		process.env.myOptionFromEnv2 = 'env2';
 		var cfg = opter({
-			myOptionFromEnv: {
-				defaultValue: 'default'
+			myOptionFromEnv1: {
+				defaultValue: 'default1'
+			},
+			myOptionFromEnv2: {
+				defaultValue: 'default2'
 			}
 		}, '0.1.0', commander);
-		assert.strictEqual(cfg.myOptionFromEnv, 'env', 'myOptionFromEnv is: env');
+		assert.strictEqual(cfg.myOptionFromEnv1, 'env1', 'myOptionFromEnv1 is: env1');
+		assert.strictEqual(cfg.myOptionFromEnv2, 'env2', 'myOptionFromEnv2 is: env2');
 		done();
 	});
 
-	it('should read values from env', function(done) {
+	it('should read values from default value', function(done) {
 		
 		var cfg = opter({
-			myOptionFromDefault: {
-				defaultValue: 'default'
+			myOptionFromDefault1: {
+				defaultValue: 'default1'
+			},
+			myOptionFromDefault2: {
+				defaultValue: 'default2'
 			}
 		}, '0.1.0', commander);
-		assert.strictEqual(cfg.myOptionFromDefault, 'default', 'myOptionFromDefault is: default');
+		assert.strictEqual(cfg.myOptionFromDefault1, 'default1', 'myOptionFromDefault1 is: default1');
+		assert.strictEqual(cfg.myOptionFromDefault2, 'default2', 'myOptionFromDefault2 is: default2');
+		done();
+	});
+
+	it('should read values from mixed places', function(done) {
+
+		process.env.myOptionFromArgs1 = 'args1';
+		process.env.myOptionFromEnv1 = 'env1';
+		var cfg = opter({
+			myOptionFromArgs1: {
+				defaultValue: 'default1'
+			},
+			myOptionFromEnv1: {
+				defaultValue: 'default2'
+			},
+			myOptionFromDefault1: {
+				defaultValue: 'default3'
+			}
+		}, '0.1.0', commander);
+		assert.strictEqual(cfg.myOptionFromArgs1, 'args1', 'myOptionFromArgs1 is: args1');
+		assert.strictEqual(cfg.myOptionFromEnv1, 'env1', 'myOptionFromEnv1 is: env1');
+		assert.strictEqual(cfg.myOptionFromDefault1, 'default3', 'myOptionFromDefault1 is: default3');
 		done();
 	});
 
