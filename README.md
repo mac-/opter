@@ -6,6 +6,8 @@ Opter provides an easy way to specify options for your application. It uses [com
 2. environment variables
 3. default value
 
+[![Build Status](https://secure.travis-ci.org/mac-/opter.png)](http://travis-ci.org/mac-/opter)
+
 ## Installation
 
 	npm install opter
