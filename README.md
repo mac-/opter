@@ -7,6 +7,7 @@ Opter provides an easy way to specify options for your application. It uses [com
 3. default value
 
 [![Build Status](https://secure.travis-ci.org/mac-/opter.png)](http://travis-ci.org/mac-/opter)
+[![NPM version](https://badge.fury.io/js/opter.png)](http://badge.fury.io/js/opter)
 
 ## Installation
 
