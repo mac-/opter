@@ -1,6 +1,6 @@
 # opter
 
-Opter provides an easy way to specify options for your application. It uses [commander](https://github.com/visionmedia/commander.js) to parse command line arguments and display option help information. In addition to reading from command line options, it can also read values from environment variables. If no values were found in the command line arguments or the environment variables, then it will assign the default value (if provided). The prioroity is:
+Opter provides an easy way to specify options for your application. It uses [commander](https://github.com/visionmedia/commander.js) to parse command line arguments and display option help information. In addition to reading from command line options, it can also read values from environment variables. If no values were found in the command line arguments or the environment variables, then it will assign the default value (if provided). The priority is:
 
 1. command line args
 2. environment variables
