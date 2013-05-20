@@ -1,10 +1,11 @@
 # opter
 
-Opter provides an easy way to specify options for your application. It uses [commander](https://github.com/visionmedia/commander.js) to parse command line arguments and display option help information. In addition to reading from command line options, it can also read values from environment variables. If no values were found in the command line arguments or the environment variables, then it will assign the default value (if provided). The priority is:
+Opter provides an easy way to specify options for your application. It uses [commander](https://github.com/visionmedia/commander.js) to parse command line arguments and display option help information. In addition to reading from command line options, it can also read values from environment variables and a json file (opter.json) that lives in the same directory as the file being run by NodeJS. If no values were found in the command line arguments, environment variables, or the opter.json file, then it will assign the default value (if provided). The priority is:
 
 1. command line args
 2. environment variables
-3. default value
+3. opter.json file
+4. default value
 
 [![Build Status](https://secure.travis-ci.org/mac-/opter.png)](http://travis-ci.org/mac-/opter)
 [![NPM version](https://badge.fury.io/js/opter.png)](http://badge.fury.io/js/opter)
@@ -23,8 +24,8 @@ The opter function takes two parameters:
 The object containing the options should be formatted like so:
 
 	{
-		myOption: {		// correlates to command line option "--my-option" or to environment variable "myOption"
-			character: 'm',		// optional, if not provided opter will try to pick one for you based on your option name
+		myOption: {		// correlates to command line option "--my-option" or environment variable "myOption" or opter.json property "myOption"
+			character: 'm',		// optional, used as the short option for the command line. If not provided opter will try to pick one for you based on your option name.
 			argument: 'string',		// optional, describes what the value should be
 			defaultValue: 'fnord',	// optional, the value to set the option to if it wasn't specified in the args or env vars
 			description: 'Some description' // optional, describes the option
@@ -55,9 +56,15 @@ With the example above, here are some sample ways to invoke the app:
 	$ node app.js -h
 	$ node app.js -V
 
+Here is an example opter.json file:
+
+	{
+		"myOption": "fnord"
+	}
+
 ## License
 
-The MIT License (MIT) Copyright (c) 2012 Mac Angell
+The MIT License (MIT) Copyright (c) 2013 Mac Angell
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

@@ -2,5 +2,5 @@
 *.log
 node_modules
 lib-test
-coverage
+test/coverage*
 .DS*
