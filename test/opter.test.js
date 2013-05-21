@@ -1,5 +1,5 @@
 var assert = require('assert'),
-	opter = require('../lib-test/opter.js'),
+	opter = require('../lib/opter.js'),
 	commander = {
 		optString: '',
 		optDescription: '',
