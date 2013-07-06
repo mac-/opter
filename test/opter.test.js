@@ -121,7 +121,31 @@ describe('Opter Unit Tests', function() {
 			}
 		}, '0.1.0', commander);
 		assert.strictEqual(commander.optString, '-d, --my-option-from-default <string>', 'option string should show short option, long option, and argument');
-		assert.strictEqual(commander.optDescription, 'some description. Defaults to: "default"', 'description should show description and default value');
+		assert.strictEqual(commander.optDescription, '(Optional) some description. Defaults to: "default"', 'description should show description and default value');
+		done();
+	});
+
+	it('should throw an error if a required value is missing', function(done) {
+
+		assert.throws(function() {
+			var cfg = opter({
+				optA: {
+					character: 'a',
+					required: true
+				}
+			}, '0.1.0', commander);
+		}, /Option .*? is not set and is required/, 'throws error');
+		done();
+	});
+
+	it('should not throw an error if an optional value is missing', function(done) {
+
+		var cfg = opter({
+				optA: {
+					character: 'a',
+					required: false
+				}
+			}, '0.1.0', commander);
 		done();
 	});
 
@@ -134,7 +158,7 @@ describe('Opter Unit Tests', function() {
 			}
 		}, '0.1.0', commander);
 		assert.strictEqual(commander.optString, '-d, --my-option-from-default', 'option string should show short option and long option');
-		assert.strictEqual(commander.optDescription, 'some description.', 'description should show description');
+		assert.strictEqual(commander.optDescription, '(Optional) some description.', 'description should show description');
 		done();
 	});
 

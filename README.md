@@ -28,7 +28,8 @@ The object containing the options should be formatted like so:
 			character: 'm',		// optional, used as the short option for the command line. If not provided opter will try to pick one for you based on your option name.
 			argument: 'string',		// optional, describes what the value should be
 			defaultValue: 'fnord',	// optional, the value to set the option to if it wasn't specified in the args or env vars
-			description: 'Some description' // optional, describes the option
+			description: 'Some description', // optional, describes the option,
+			required: true // optional, if set to true and no value is found, opter will throw an error. defaults to false.
 		}
 	}
 
@@ -55,6 +56,20 @@ With the example above, here are some sample ways to invoke the app:
 	$ export myOption=test && node app.js
 	$ node app.js -h
 	$ node app.js -V
+
+When an app using opter is run with the "-h" option, something similar will be displayed in the console:
+
+```
+$ node app.js -h
+
+  Usage: app.js [options]
+
+  Options:
+
+    -h, --help                          output usage information
+    -V, --version                       output the version number
+    -m, --my-option <value>             (Optional) Enables some cool funcitonality. Defaults to: true
+```
 
 Here is an example opter.json file:
 
