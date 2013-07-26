@@ -6,7 +6,7 @@
 	],
 	"version": "0.4.0",
 	"dependencies": {
-		"commander": "1.x.x",
+		"commander": "2.x.x",
 		"underscore": "1.x.x"
 	},
 	"devDependencies": {
