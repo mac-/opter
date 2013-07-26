@@ -57,6 +57,37 @@ describe('Opter Unit Tests', function() {
 		done();
 	});
 
+	it('should read values from args and convert types', function(done) {
+		
+		process.env.myOptionFromArgs1 = '100';
+		process.env.myOptionFromArgs2 = 'true';
+		process.env.myOptionFromArgs3 = '1234567890';
+		process.env.myOptionFromArgs4 = '2013-07-26T23:07:22.882Z';
+		var cfg = opter({
+			myOptionFromArgs1: {
+				defaultValue: '10',
+				type: Number
+			},
+			myOptionFromArgs2: {
+				defaultValue: 'false',
+				type: Boolean
+			},
+			myOptionFromArgs3: {
+				defaultValue: '9999',
+				type: Date
+			},
+			myOptionFromArgs4: {
+				defaultValue: '9999',
+				type: Date
+			}
+		}, '0.1.0', commander);
+		assert.strictEqual(cfg.myOptionFromArgs1, 100, 'myOptionFromArgs1 is: 100');
+		assert.strictEqual(cfg.myOptionFromArgs2, true, 'myOptionFromArgs2 is: true');
+		assert.strictEqual(cfg.myOptionFromArgs3.getTime(), 1234567890, 'myOptionFromArgs3 is a date with getTime of: 1234567890');
+		assert.strictEqual(cfg.myOptionFromArgs4.getTime(), 1374880042882, 'myOptionFromArgs4 is a date with getTime of: 1374880042882');
+		done();
+	});
+
 	it('should read values from env', function(done) {
 		
 		process.env.myOptionFromEnv1 = 'env1';
