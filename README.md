@@ -11,6 +11,8 @@ Opter provides an easy way to specify options for your application. It uses [com
 [![NPM version](https://badge.fury.io/js/opter.png)](http://badge.fury.io/js/opter)
 [![Dependency Status](https://david-dm.org/mac-/opter.png)](https://david-dm.org/mac-/opter)
 
+[![NPM](https://nodei.co/npm/opter.png?downloads=true&stars=true)](https://nodei.co/npm/opter/)
+
 ## Installation
 
 	npm install opter
