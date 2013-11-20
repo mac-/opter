@@ -29,13 +29,15 @@ The object containing the options should be formatted like so:
 	{
 		myOption: {		// correlates to command line option "--my-option" or environment variable "myOption" or opter.json property "myOption"
 			character: 'm',		// optional, used as the short option for the command line. If not provided opter will try to pick one for you based on your option name.
-			argument: 'string',		// optional, describes what the value should be
+			argument: 'string',		// optional, describes what the value should be. If not provided, the type is expected to be a boolean, and does not require value when the option is specified on the command line (the presence of the option on the command line implies true)
 			defaultValue: 'fnord',	// optional, the value to set the option to if it wasn't specified in the args or env vars
 			description: 'Some description', // optional, describes the option,
 			required: true, // optional, if set to true and no value is found, opter will throw an error. defaults to false.
 			type: Number // optional, the type to convert the data to. valid values are Boolean, Number, Date, and String. defaults to String.
 		}
 	}
+
+Note: If `argument` is missing or falsey and `type` is not `Boolean`, an error will be thrown.
 
 The function returns an object containing the keys that were specified in the options that were passed along with the values that opter found from the args, env vars, or default values. For example, calling the opter function with the above sample options object, the result might look like:
 
@@ -80,6 +82,51 @@ Here is an example opter.json file:
 	{
 		"myOption": "fnord"
 	}
+
+### Nested Options
+
+You can also specify option names with dots (.) to denote a nested property within your `opter.json` file. However, when using dots in the name, the environment variable will have the dots replaced with underscores (_). Here is an example:
+
+
+Opter options:
+
+```
+{
+	'statsd.host': {
+		character: 's',
+		argument: 'host',
+		defaultValue: 'localhost:8125'
+	},
+	'statsd.prefix': {
+		chatacter: 'S',
+		argument: 'string'
+	}
+}
+```
+
+Corresponding commandline arguments:
+
+```
+... --statsd.host=localhost:8125 --statsd.prefix=myApp
+```
+
+Corresponding environment variables:
+
+```
+statsd_host=localhost:8125
+statsd_prefix=myApp
+```
+
+Corresponding opter.json:
+
+```
+{
+	statsd: {
+		host: 'localhost:8125',
+		prefix: 'myApp'
+	}
+}
+```
 
 ## License
 
