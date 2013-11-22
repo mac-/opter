@@ -12,6 +12,7 @@ Opter provides an easy way to specify options for your application. It uses [com
 [![Dependency Status](https://david-dm.org/mac-/opter.png)](https://david-dm.org/mac-/opter)
 
 [![NPM](https://nodei.co/npm/opter.png?downloads=true&stars=true)](https://nodei.co/npm/opter/)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mac-/opter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 ## Installation
 
@@ -101,7 +102,8 @@ Opter options:
 		chatacter: 'S',
 		argument: 'string'
 	}
-}
+};
+
 ```
 
 Corresponding commandline arguments:
@@ -127,6 +129,19 @@ Corresponding opter.json:
 	}
 }
 ```
+
+The object returned by the opter function:
+
+```
+{
+	statsd: {
+		host: 'localhost:8125',
+		prefix: 'myApp'
+	}
+}
+```
+
+As you can see, the object returned by opter will look identical to what you put in the `opter.json` file, as long as ll the properties in the opter.json file match the configuration options passed to the opter method.
 
 ## License
 

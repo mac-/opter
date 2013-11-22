@@ -418,9 +418,9 @@ describe('Opter Unit Tests', function() {
 				argument: 'string'
 			}
 		}, '0.1.0');
-		assert.strictEqual(cfg['nested.config.file'], 'fnord3', 'nested.config.file is: fnord3');
-		assert.strictEqual(cfg['nested.config.args'], 'args1', 'nested.config.args is: args1');
-		assert.strictEqual(cfg['nested.config.env'], 'env1', 'myOptionFromEnv2 is: env1');
+		assert.strictEqual(cfg.nested.config.file, 'fnord3', 'nested.config.file is: fnord3');
+		assert.strictEqual(cfg.nested.config.args, 'args1', 'nested.config.args is: args1');
+		assert.strictEqual(cfg.nested.config.env, 'env1', 'myOptionFromEnv2 is: env1');
 		done();
 	});
 
