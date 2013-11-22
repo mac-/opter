@@ -8,11 +8,11 @@ Opter provides an easy way to specify options for your application. It uses [com
 4. default value
 
 [![Build Status](https://secure.travis-ci.org/mac-/opter.png)](http://travis-ci.org/mac-/opter)
+[![Coverage Status](https://coveralls.io/repos/mac-/opter/badge.png)](https://coveralls.io/r/mac-/opter)
 [![NPM version](https://badge.fury.io/js/opter.png)](http://badge.fury.io/js/opter)
 [![Dependency Status](https://david-dm.org/mac-/opter.png)](https://david-dm.org/mac-/opter)
 
 [![NPM](https://nodei.co/npm/opter.png?downloads=true&stars=true)](https://nodei.co/npm/opter/)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mac-/opter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 ## Installation
 
@@ -152,3 +152,5 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mac-/opter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

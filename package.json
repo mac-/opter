@@ -15,7 +15,8 @@
 		"jshint": "0.x.x",
 		"travis-cov": "0.2.x",
 		"blanket": "1.0.x",
-		"rewire": "2.x.x"
+		"rewire": "2.x.x",
+		"coveralls": "2.x.x"
 	},
 	"keywords": [
 		"options"
@@ -29,7 +30,7 @@
 		"url": "https://github.com/mac-/opter"
 	},
 	"scripts": {
-		"test": "make test && make test-cov",
+		"test": "make test && make test-cov | ./node_modules/coveralls/bin/coveralls.js",
 		"blanket": {
 			"pattern": "//^((?!\/node_modules\/)(?!\/test\/).)*$/ig",
 			"onlyCwd": true,
