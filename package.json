@@ -13,10 +13,10 @@
 	"devDependencies": {
 		"mocha": "1.x.x",
 		"jshint": "0.x.x",
-		"travis-cov": "0.2.x",
 		"blanket": "1.0.x",
 		"rewire": "2.x.x",
-		"coveralls": "2.x.x"
+		"coveralls": "2.x.x",
+		"mocha-lcov-reporter": "0.x.x"
 	},
 	"keywords": [
 		"options"
