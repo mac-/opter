@@ -4,7 +4,7 @@
 	"contributors": [
 		"Mac Angell <mac.ang311@gmail.com>"
 	],
-	"version": "0.6.0",
+	"version": "0.6.1",
 	"dependencies": {
 		"commander": "2.x.x",
 		"underscore": "1.x.x",
@@ -14,6 +14,7 @@
 		"mocha": "1.x.x",
 		"jshint": "0.x.x",
 		"blanket": "1.0.x",
+		"travis-cov": "0.2.x",
 		"rewire": "2.x.x",
 		"coveralls": "2.x.x",
 		"mocha-lcov-reporter": "0.x.x"
@@ -30,7 +31,7 @@
 		"url": "https://github.com/mac-/opter"
 	},
 	"scripts": {
-		"test": "make test && make test-cov | ./node_modules/coveralls/bin/coveralls.js",
+		"test": "make test && make test-cov && make test-lcov | ./node_modules/coveralls/bin/coveralls.js",
 		"blanket": {
 			"pattern": "//^((?!\/node_modules\/)(?!\/test\/).)*$/ig",
 			"onlyCwd": true,

@@ -78,6 +78,23 @@ describe('Opter Unit Tests', function() {
 		done();
 	});
 
+	it('should read empty string values from args', function(done) {
+		
+		setCommandLineArgsAndEnvVars([
+			'node', './test/opter.test.js',
+			'--my-option-from-args1', ''
+		]);
+
+		var cfg = opter({
+			myOptionFromArgs1: {
+				defaultValue: 'default1',
+				argument: 'string'
+			}
+		}, '0.1.0');
+		assert.strictEqual(cfg.myOptionFromArgs1, '', 'myOptionFromArgs1 is an empty string');
+		done();
+	});
+
 	it('should read boolean values from args', function(done) {
 		
 		setCommandLineArgsAndEnvVars([
