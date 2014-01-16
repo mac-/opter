@@ -41,7 +41,7 @@ describe('Opter Unit Tests', function() {
 	});
 
 	it('should throw an error when 2 or more options use the same character', function(done) {
-		
+
 		assert.throws(function() {
 			var cfg = opter({
 				optA: {
@@ -56,7 +56,7 @@ describe('Opter Unit Tests', function() {
 	});
 
 	it('should read values from args', function(done) {
-		
+
 		setCommandLineArgsAndEnvVars([
 			'node', './test/opter.test.js',
 			'--my-option-from-args1', 'args1',
@@ -79,7 +79,7 @@ describe('Opter Unit Tests', function() {
 	});
 
 	it('should read empty string values from args', function(done) {
-		
+
 		setCommandLineArgsAndEnvVars([
 			'node', './test/opter.test.js',
 			'--my-option-from-args1', ''
@@ -96,7 +96,7 @@ describe('Opter Unit Tests', function() {
 	});
 
 	it('should read boolean values from args', function(done) {
-		
+
 		setCommandLineArgsAndEnvVars([
 			'node', './test/opter.test.js',
 			'--my-option-from-args1'
@@ -116,7 +116,7 @@ describe('Opter Unit Tests', function() {
 	});
 
 	it('should read values from args and convert types', function(done) {
-		
+
 		setCommandLineArgsAndEnvVars([
 			'node', './test/opter.test.js',
 			'--my-option-from-args1', '100',
@@ -150,6 +150,26 @@ describe('Opter Unit Tests', function() {
 				defaultValue: '0',
 				argument: 'string',
 				type: String
+			},
+			myOptionFromArgs6: {
+				defaultValue: '[]',
+				argument: 'object',
+				type: Object
+			},
+			myOptionFromArgs7: {
+				defaultValue: [],
+				argument: 'object',
+				type: Object
+			},
+			myOptionFromArgs8: {
+				defaultValue: '{}',
+				argument: 'object',
+				type: Object
+			},
+			myOptionFromArgs9: {
+				defaultValue: {},
+				argument: 'object',
+				type: Object
 			}
 		}, '0.1.0');
 		assert.strictEqual(cfg.myOptionFromArgs1, 100, 'myOptionFromArgs1 is: 100');
@@ -157,11 +177,15 @@ describe('Opter Unit Tests', function() {
 		assert.strictEqual(cfg.myOptionFromArgs3.getTime(), 1234567890, 'myOptionFromArgs3 is a date with getTime of: 1234567890');
 		assert.strictEqual(cfg.myOptionFromArgs4.getTime(), 1374880042882, 'myOptionFromArgs4 is a date with getTime of: 1374880042882');
 		assert.strictEqual(cfg.myOptionFromArgs5, '0', 'myOptionFromArgs5 is : "0"');
+		assert.strictEqual(cfg.myOptionFromArgs6 instanceof Array, true, 'expected value to be [], got: ' + JSON.stringify(cfg.myOptionFromArgs6));
+		assert.strictEqual(cfg.myOptionFromArgs7 instanceof Array, true, 'expected value to be [], got: ' + JSON.stringify(cfg.myOptionFromArgs7));
+		assert.strictEqual(cfg.myOptionFromArgs8 instanceof Object, true, 'expected value to be {}, got: ' + JSON.stringify(cfg.myOptionFromArgs8));
+		assert.strictEqual(cfg.myOptionFromArgs9 instanceof Object, true, 'expected value to be {}, got: ' + JSON.stringify(cfg.myOptionFromArgs9));
 		done();
 	});
 
 	it('should read values from env', function(done) {
-		
+
 		setCommandLineArgsAndEnvVars(null, {
 			myOptionFromEnv1: 'env1',
 			myOptionFromEnv2: 'env2'
@@ -183,7 +207,7 @@ describe('Opter Unit Tests', function() {
 	});
 
 	it('should read values from default value', function(done) {
-		
+
 		setCommandLineArgsAndEnvVars();
 
 		var cfg = opter({
@@ -231,7 +255,7 @@ describe('Opter Unit Tests', function() {
 	});
 
 	it('should set options and description', function(done) {
-		
+
 		setCommandLineArgsAndEnvVars();
 
 		var cfg = opter({
@@ -303,8 +327,48 @@ describe('Opter Unit Tests', function() {
 		done();
 	});
 
+	it('should throw an error if an argument value is not an object string, and type is Object', function(done) {
+
+		assert.throws(function() {
+			var cfg = opter({
+				myOptionFromArgs6: {
+					defaultValue: 'x',
+					argument: 'object',
+					type: Object
+				}
+			}, '0.1.0');
+		}, /Option .*? has a value that cannot be converted to an Object: .*?/, 'throws error');
+		done();
+	});
+
+	it('should throw an error if an argument value is not an object, and type is Object', function(done) {
+
+		assert.throws(function() {
+			var cfg = opter({
+				myOptionFromArgs6: {
+					defaultValue: true,
+					argument: 'object',
+					type: Object
+				}
+			}, '0.1.0');
+		}, /Option .*? has a value is not an Object: .*?/, 'throws error');
+		done();
+	});
+
+	it('should not throw an error if an argument value is an object string, and type is Object', function(done) {
+
+		var cfg = opter({
+			myOptionFromArgs6: {
+				defaultValue: [{"appName": "test"}],
+				argument: 'object',
+				type: Object
+			}
+		}, '0.1.0');
+		done();
+	});
+
 	it('should set options and description without default and argument', function(done) {
-		
+
 		setCommandLineArgsAndEnvVars();
 
 		var cfg = opter({
@@ -326,7 +390,7 @@ describe('Opter Unit Tests', function() {
 	});
 
 	it('should automatically pick a character', function(done) {
-		
+
 		setCommandLineArgsAndEnvVars();
 
 		var cfg = opter({
@@ -391,7 +455,7 @@ describe('Opter Unit Tests', function() {
 
 		done();
 	});
-	
+
 	it('should read config from an opter.json file', function(done) {
 
 		// change the location of the "running file"
@@ -412,7 +476,7 @@ describe('Opter Unit Tests', function() {
 	});
 
 	it('should read nested config from any place', function(done) {
-		
+
 		// change the location of the "running file"
 		setCommandLineArgsAndEnvVars([
 			'node', __dirname + '/support/opter.test.js',
@@ -420,7 +484,7 @@ describe('Opter Unit Tests', function() {
 		], {
 			nested_config_env: 'env1'
 		});
-		
+
 		var cfg = opter({
 			'nested.config.file': {
 				defaultValue: 'default1',
