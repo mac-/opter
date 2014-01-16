@@ -34,7 +34,7 @@ The object containing the options should be formatted like so:
 			defaultValue: 'fnord',	// optional, the value to set the option to if it wasn't specified in the args or env vars
 			description: 'Some description', // optional, describes the option,
 			required: true, // optional, if set to true and no value is found, opter will throw an error. defaults to false.
-			type: Number // optional, the type to convert the data to. valid values are Boolean, Number, Date, and String. defaults to String.
+			type: Number // optional, the type to convert the data to. valid values are Boolean, Number, Date, Object and String. defaults to String.
 		}
 	}
 
