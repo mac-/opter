@@ -9,10 +9,29 @@ Opter provides an easy way to specify options for your application. It uses [com
 
 [![Build Status](https://secure.travis-ci.org/mac-/opter.png)](http://travis-ci.org/mac-/opter)
 [![Coverage Status](https://coveralls.io/repos/mac-/opter/badge.png)](https://coveralls.io/r/mac-/opter)
+[![Code Climate](https://codeclimate.com/github/mac-/opter.png)](https://codeclimate.com/github/mac-/opter)
 [![NPM version](https://badge.fury.io/js/opter.png)](http://badge.fury.io/js/opter)
 [![Dependency Status](https://david-dm.org/mac-/opter.png)](https://david-dm.org/mac-/opter)
 
 [![NPM](https://nodei.co/npm/opter.png?downloads=true&stars=true)](https://nodei.co/npm/opter/)
+
+## Contributing
+
+This module makes use of a `Makefile` for building/testing purposes. After obtaining a copy of the repo, run the following commands to make sure everything is in working condition before you start your work:
+
+	make install
+	make test
+
+Before committing a change to your fork/branch, run the following commands to make sure nothing is broken:
+
+	make test
+	make test-cov
+
+Don't forget to bump the version in the `package.json` using the [semver](http://semver.org/spec/v2.0.0.html) spec as a guide for which part to bump. Submit a pull request when your work is complete.
+
+***Notes:***
+* Please do your best to ensure the code coverage does not drop. If new unit tests are required to maintain the same level of coverage, please include those in your pull request.
+* Please follow the same coding/formatting practices that have been established in the module.
 
 ## Installation
 
@@ -28,13 +47,15 @@ The opter function takes two parameters:
 The object containing the options should be formatted like so:
 
 	{
-		myOption: {		// correlates to command line option "--my-option" or environment variable "myOption" or opter.json property "myOption"
-			character: 'm',		// optional, used as the short option for the command line. If not provided opter will try to pick one for you based on your option name.
-			argument: 'string',		// optional, describes what the value should be. If not provided, the type is expected to be a boolean, and does not require value when the option is specified on the command line (the presence of the option on the command line implies true)
+		myOption: {					// correlates to command line option "--my-option" and environment variable "myOption" and environment variable "MYOPTION" and opter.json property "myOption"
+			character: 'm',			// optional, used as the short option for the command line. If not provided opter will try to pick one for you based on your option name.
+			argument: 'string',		// optional, describes what the value should be. If not provided, it defaults to the "type" within the schema if set, otherwise to "string". If the schema type is "boolean", no argument is required.
 			defaultValue: 'fnord',	// optional, the value to set the option to if it wasn't specified in the args or env vars
-			description: 'Some description', // optional, describes the option,
-			required: true, // optional, if set to true and no value is found, opter will throw an error. defaults to false.
-			type: Number // optional, the type to convert the data to. valid values are Boolean, Number, Date, Object and String. defaults to String.
+			required: true, 		// optional, if set to true and no value is found, opter will throw an error. defaults to false.
+			schema: {				// optional, a JSONSchema definition to validate the value against. If the "type" property is used, opter will also try to convert the value to that type before validating it.
+				type: 'string',		// optional, the type that the value should conform to
+				description: ''		// optional, describes the option and is used when generating the command line help
+			}				
 		}
 	}
 
@@ -152,5 +173,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mac-/opter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

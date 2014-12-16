@@ -121,66 +121,66 @@ describe('Opter Unit Tests', function() {
 			'node', './test/opter.test.js',
 			'--my-option-from-args1', '100',
 			'--my-option-from-args2', 'true',
-			'--my-option-from-args3', '1234567890',
-			'--my-option-from-args4', '2013-07-26T23:07:22.882Z',
-			'--my-option-from-args5', '0'
+			'--my-option-from-args3', '0'
 		]);
 
 		var cfg = opter({
 			myOptionFromArgs1: {
 				defaultValue: '10',
 				argument: 'number',
-				type: Number
+				schema: {
+					type: 'number'
+				}
 			},
 			myOptionFromArgs2: {
 				defaultValue: 'false',
-				type: Boolean
+				schema: {
+					type: 'boolean'
+				}
 			},
 			myOptionFromArgs3: {
-				defaultValue: '9999',
-				argument: 'date',
-				type: Date
-			},
-			myOptionFromArgs4: {
-				defaultValue: '9999',
-				argument: 'date',
-				type: Date
-			},
-			myOptionFromArgs5: {
 				defaultValue: '0',
 				argument: 'string',
-				type: String
+				schema: {
+					type: 'string'
+				}
+			},
+			myOptionFromArgs4: {
+				defaultValue: '[]',
+				argument: 'array',
+				schema: {
+					type: 'array'
+				}
+			},
+			myOptionFromArgs5: {
+				defaultValue: [],
+				argument: 'array',
+				schema: {
+					type: 'array'
+				}
 			},
 			myOptionFromArgs6: {
-				defaultValue: '[]',
-				argument: 'object',
-				type: Object
-			},
-			myOptionFromArgs7: {
-				defaultValue: [],
-				argument: 'object',
-				type: Object
-			},
-			myOptionFromArgs8: {
 				defaultValue: '{}',
 				argument: 'object',
-				type: Object
+				schema: {
+					type: 'object'
+				}
 			},
-			myOptionFromArgs9: {
+			myOptionFromArgs7: {
 				defaultValue: {},
 				argument: 'object',
-				type: Object
+				schema: {
+					type: 'object'
+				}
 			}
 		}, '0.1.0');
 		assert.strictEqual(cfg.myOptionFromArgs1, 100, 'myOptionFromArgs1 is: 100');
 		assert.strictEqual(cfg.myOptionFromArgs2, true, 'myOptionFromArgs2 is: true');
-		assert.strictEqual(cfg.myOptionFromArgs3.getTime(), 1234567890, 'myOptionFromArgs3 is a date with getTime of: 1234567890');
-		assert.strictEqual(cfg.myOptionFromArgs4.getTime(), 1374880042882, 'myOptionFromArgs4 is a date with getTime of: 1374880042882');
-		assert.strictEqual(cfg.myOptionFromArgs5, '0', 'myOptionFromArgs5 is : "0"');
-		assert.strictEqual(cfg.myOptionFromArgs6 instanceof Array, true, 'expected value to be [], got: ' + JSON.stringify(cfg.myOptionFromArgs6));
-		assert.strictEqual(cfg.myOptionFromArgs7 instanceof Array, true, 'expected value to be [], got: ' + JSON.stringify(cfg.myOptionFromArgs7));
-		assert.strictEqual(cfg.myOptionFromArgs8 instanceof Object, true, 'expected value to be {}, got: ' + JSON.stringify(cfg.myOptionFromArgs8));
-		assert.strictEqual(cfg.myOptionFromArgs9 instanceof Object, true, 'expected value to be {}, got: ' + JSON.stringify(cfg.myOptionFromArgs9));
+		assert.strictEqual(cfg.myOptionFromArgs3, '0', 'myOptionFromArgs3 is : "0"');
+		assert.strictEqual(cfg.myOptionFromArgs4 instanceof Array, true, 'expected value to be [], got: ' + JSON.stringify(cfg.myOptionFromArgs4));
+		assert.strictEqual(cfg.myOptionFromArgs5 instanceof Array, true, 'expected value to be [], got: ' + JSON.stringify(cfg.myOptionFromArgs5));
+		assert.strictEqual(cfg.myOptionFromArgs6 instanceof Object, true, 'expected value to be {}, got: ' + JSON.stringify(cfg.myOptionFromArgs6));
+		assert.strictEqual(cfg.myOptionFromArgs7 instanceof Object, true, 'expected value to be {}, got: ' + JSON.stringify(cfg.myOptionFromArgs7));
 		done();
 	});
 
@@ -203,6 +203,28 @@ describe('Opter Unit Tests', function() {
 		}, '0.1.0');
 		assert.strictEqual(cfg.myOptionFromEnv1, 'env1', 'myOptionFromEnv1 is: env1');
 		assert.strictEqual(cfg.myOptionFromEnv2, 'env2', 'myOptionFromEnv2 is: env2');
+		done();
+	});
+
+	it('should read values from env as all caps', function(done) {
+
+		setCommandLineArgsAndEnvVars(null, {
+			MYOPTIONFROMENV1: 'env1',
+			MYOPTIONFROMENV2: 'env2'
+		});
+
+		var cfg = opter({
+			myOptionFromEnv1: {
+				defaultValue: 'default1',
+				argument: 'string'
+			},
+			myOptionFromEnv2: {
+				defaultValue: 'default2',
+				argument: 'string'
+			}
+		}, '0.1.0');
+		assert.strictEqual(cfg.myOptionFromEnv1, 'env1', 'MYOPTIONFROMENV1 is: env1');
+		assert.strictEqual(cfg.myOptionFromEnv2, 'env2', 'MYOPTIONFROMENV2 is: env2');
 		done();
 	});
 
@@ -313,19 +335,6 @@ describe('Opter Unit Tests', function() {
 		done();
 	});
 
-	it('should throw an error if an argument value is missing, and type is not Boolean', function(done) {
-
-		assert.throws(function() {
-			var cfg = opter({
-				optA: {
-					character: 'a',
-					required: true,
-					type: Number
-				}
-			}, '0.1.0');
-		}, /.*? Please specify an/, 'throws error');
-		done();
-	});
 
 	it('should throw an error if an argument value is not an object string, and type is Object', function(done) {
 
@@ -334,10 +343,12 @@ describe('Opter Unit Tests', function() {
 				myOptionFromArgs6: {
 					defaultValue: 'x',
 					argument: 'object',
-					type: Object
+					schema: {
+						type: 'object'
+					}
 				}
 			}, '0.1.0');
-		}, /Option .*? has a value that cannot be converted to an Object: .*?/, 'throws error');
+		}, /Option .*? has a value that cannot be converted to an Object\/Array: .*?/, 'throws error');
 		done();
 	});
 
@@ -348,10 +359,28 @@ describe('Opter Unit Tests', function() {
 				myOptionFromArgs6: {
 					defaultValue: true,
 					argument: 'object',
-					type: Object
+					schema: {
+						type: 'object'
+					}
 				}
 			}, '0.1.0');
-		}, /Option .*? has a value is not an Object: .*?/, 'throws error');
+		}, /Option .*? has a value is not an Object\/Array: .*?/, 'throws error');
+		done();
+	});
+
+	it('should throw an error if the value does not match the schema', function(done) {
+
+		assert.throws(function() {
+			var cfg = opter({
+				myOptionFromArgs6: {
+					defaultValue: 'fnord',
+					schema: {
+						type: 'string',
+						minLength: 10
+					}
+				}
+			}, '0.1.0');
+		}, 'throws error');
 		done();
 	});
 
@@ -361,7 +390,9 @@ describe('Opter Unit Tests', function() {
 			myOptionFromArgs6: {
 				defaultValue: [{"appName": "test"}],
 				argument: 'object',
-				type: Object
+				schema: {
+					type: 'array'
+				}
 			}
 		}, '0.1.0');
 		done();
@@ -471,7 +502,26 @@ describe('Opter Unit Tests', function() {
 			}
 		}, '0.1.0');
 		assert.strictEqual(cfg.myOptionFromFile, 'fnord1', 'myOptionFromFile is: fnord1');
-		assert.strictEqual(cfg.myOptionFromFile2, 'fnord2', 'myOptionFromEnv2 is: fnord2');
+		assert.strictEqual(cfg.myOptionFromFile2, 'fnord2', 'myOptionFromFile2 is: fnord2');
+		done();
+	});
+
+	it('should read config from a specified file', function(done) {
+
+		// change the location of the "running file"
+		setCommandLineArgsAndEnvVars(['node', __dirname + '/support/opter.test.js']);
+		var cfg = opter({
+			myOptionFromDifferentFile: {
+				defaultValue: 'default1',
+				argument: 'string'
+			},
+			myOptionFromDifferentFile2: {
+				defaultValue: 'default2',
+				argument: 'string'
+			}
+		}, '0.1.0', './other.json');
+		assert.strictEqual(cfg.myOptionFromDifferentFile, 'fnord10', 'myOptionFromDifferentFile is: fnord10');
+		assert.strictEqual(cfg.myOptionFromDifferentFile2, 'fnord20', 'myOptionFromDifferentFile2 is: fnord20');
 		done();
 	});
 

@@ -1,11 +1,8 @@
 clean:
-	npm cache clean && rm -rf node_modules/*
+	rm -rf node_modules/*
 
 install:
 	npm install
-
-update:
-	make clean && rm -rf npm-shrinkwrap.json && npm install && npm shrinkwrap
 
 test:
 	./node_modules/.bin/jshint lib/* --config test/jshint/config.json
