@@ -284,8 +284,10 @@ describe('Opter Unit Tests', function() {
 			myOptionFromDefault: {
 				character: 'd',
 				argument: 'string',
-				description: 'some description.',
-				defaultValue: 'default'
+				defaultValue: 'default',
+				schema: {
+					description: 'some description.'
+				}
 			}
 		}, '0.1.0');
 		var mockedCommander = opter.__get__('commander');
@@ -405,7 +407,9 @@ describe('Opter Unit Tests', function() {
 		var cfg = opter({
 			myOptionFromDefault: {
 				character: 'd',
-				description: 'some description.'
+				schema: {
+					description: 'some description.'
+				}
 			}
 		}, '0.1.0');
 
@@ -482,6 +486,36 @@ describe('Opter Unit Tests', function() {
 		flagsMatch = _.find(mockedCommander.options, function(item) { return (item.flags === expectedFlagsString); });
 
 		assert(flagsMatch, 'option string should show short option as "b"');
+		resetCommander();
+
+		done();
+	});
+
+	it('should filter out invalid characters when attempting to pick one', function(done) {
+
+		setCommandLineArgsAndEnvVars();
+
+		var cfg = opter({
+			a_b: { },
+			a_c: { },
+			a_d: { },
+			'!%@#$thing': { },
+			',./<>': { }
+		}, '0.1.0');
+
+		var mockedCommander = opter.__get__('commander');
+		var expectedFlagsString = '-d, --a_d';
+		var flagsMatch = _.find(mockedCommander.options, function(item) { return (item.flags === expectedFlagsString); });
+		assert(flagsMatch, 'option string should show short option as "d"');
+
+		expectedFlagsString = '-t, --!%@#$thing';
+		flagsMatch = _.find(mockedCommander.options, function(item) { return (item.flags === expectedFlagsString); });
+		assert(flagsMatch, 'option string should show short option as "t"');
+
+		expectedFlagsString = '-b, --,./<>';
+		flagsMatch = _.find(mockedCommander.options, function(item) { return (item.flags === expectedFlagsString); });
+		assert(flagsMatch, 'option string should show short option as "b"');
+
 		resetCommander();
 
 		done();

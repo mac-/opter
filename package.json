@@ -4,7 +4,7 @@
 	"contributors": [
 		"Mac Angell <mac.ang311@gmail.com>"
 	],
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"dependencies": {
 		"commander": "2.x.x",
 		"underscore": "1.x.x",
