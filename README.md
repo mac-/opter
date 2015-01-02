@@ -1,10 +1,10 @@
 # opter
 
-Opter provides an easy way to specify options for your application. It uses [commander](https://github.com/visionmedia/commander.js) to parse command line arguments and display option help information. In addition to reading from command line options, it can also read values from environment variables and a json file (opter.json) that lives in the same directory as the file being run by NodeJS. If no values were found in the command line arguments, environment variables, or the opter.json file, then it will assign the default value (if provided). The priority is:
+Opter provides an easy way to specify options for your application. It uses [commander](https://github.com/visionmedia/commander.js) to parse command line arguments and display option help information. In addition to reading from command line options, it can also read values from environment variables and a json/yaml file (opter.json) that lives in the same directory as the file being run by NodeJS. If no values were found in the command line arguments, environment variables, or the JSON/YAML config file, then it will assign the default value (if provided). The priority is:
 
 1. command line args
 2. environment variables
-3. opter.json file
+3. JSON/YAML config file
 4. default value
 
 [![Build Status](https://secure.travis-ci.org/mac-/opter.png)](http://travis-ci.org/mac-/opter)
@@ -39,10 +39,11 @@ Don't forget to bump the version in the `package.json` using the [semver](http:/
 
 ## Usage
 
-The opter function takes two parameters:
+The opter function takes three parameters:
 
 * An object containing the options to configure
 * The version of your app (easily retrieved by running ```require('./package.json').version```)
+* [optional] A location to a file that contains the config to read. Note: Command line options and env vars trump any values in this file. If not specified, it defaults to a file called `opter.json`. All relative paths are assumed to be relative the file being executed by Node.
 
 The object containing the options should be formatted like so:
 

@@ -533,10 +533,15 @@ describe('Opter Unit Tests', function() {
 			myOptionFromFile2: {
 				defaultValue: 'default2',
 				argument: 'string'
+			},
+			nested: {
+				defaultValue: {}
 			}
 		}, '0.1.0');
 		assert.strictEqual(cfg.myOptionFromFile, 'fnord1', 'myOptionFromFile is: fnord1');
 		assert.strictEqual(cfg.myOptionFromFile2, 'fnord2', 'myOptionFromFile2 is: fnord2');
+		assert.strictEqual(cfg.nested.config.file, 'fnord3', 'nested.config.file is: fnord3');
+		assert.strictEqual(cfg.ignored, undefined, 'ignored is undefined');
 		done();
 	});
 
@@ -556,6 +561,30 @@ describe('Opter Unit Tests', function() {
 		}, '0.1.0', './other.json');
 		assert.strictEqual(cfg.myOptionFromDifferentFile, 'fnord10', 'myOptionFromDifferentFile is: fnord10');
 		assert.strictEqual(cfg.myOptionFromDifferentFile2, 'fnord20', 'myOptionFromDifferentFile2 is: fnord20');
+		done();
+	});
+
+	it('should read config from a specified YAML file', function(done) {
+
+		// change the location of the "running file"
+		setCommandLineArgsAndEnvVars(['node', __dirname + '/support/opter.test.js']);
+		var cfg = opter({
+			myOptionFromFile: {
+				defaultValue: 'default1',
+				argument: 'string'
+			},
+			myOptionFromFile2: {
+				defaultValue: 'default2',
+				argument: 'string'
+			},
+			nested: {
+				defaultValue: {}
+			}
+		}, '0.1.0', './opter.yml');
+		assert.strictEqual(cfg.myOptionFromFile, 'fnord1', 'myOptionFromFile is: fnord1');
+		assert.strictEqual(cfg.myOptionFromFile2, 'fnord2', 'myOptionFromFile2 is: fnord2');
+		assert.strictEqual(cfg.nested.config.file, 'fnord3', 'nested.config.file is: fnord3');
+		assert.strictEqual(cfg.ignored, undefined, 'ignored is undefined');
 		done();
 	});
 
